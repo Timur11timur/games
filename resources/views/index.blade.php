@@ -3,8 +3,8 @@
 @section('content')
     <div class="container mx-auto px-4 py-6">
         <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Popular Games</h2>
-        <div class="popular-games text-sm grid grid-cols-6 gap-12 border-b border-gray-800 pb-16">
-            @for($i=0;$i<20;$i++)
+        <div class="popular-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 border-b border-gray-800 pb-16">
+            @for($i=0;$i<10;$i++)
                 <div class="game mt-8">
                     <div class="relative inline-block">
                        <a href="#">
@@ -19,8 +19,8 @@
                 </div>
             @endfor
         </div>
-        <div class="flex my-10">
-            <div class="recently-reviewed w-3/4 mr-32">
+        <div class="flex flex-col lg:flex-row my-10">
+            <div class="recently-reviewed w-full lg:w-3/4 mr-0 lg:mr-32">
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Recently reviewed</h2>
                 <div class="recently-reviewed-container space-y-12 mt-8">
                     @for($i=0;$i<3;$i++)
@@ -36,7 +36,7 @@
                             <div class="ml-12">
                                 <a href="#" class="block text-lg font-semibold leading-tight hover:text-gray-400 mt-4">Just Cause 4</a>
                                 <div class="text-gray-400 mt-1">PlayStation 4</div>
-                                <p class="text-gray-400 mt-6">
+                                <p class="text-gray-400 mt-6 hidden lg:block">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aspernatur aut autem consectetur, deleniti dignissimos dolore, earum eveniet ex in nobis obcaecati possimus quae quos recusandae sint tempore totam veniam!
                                 </p>
                             </div>
@@ -44,7 +44,7 @@
                     @endfor
                 </div>
             </div>
-            <div class="most-anticipated w-1/4">
+            <div class="most-anticipated lg:w-1/4 mt-12 lg:mt-0">
                 <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Most anticipated</h2>
                 <div class="most-anticipated-container space-y-10 mt-8">
                     @for($i=0;$i<4;$i++)
