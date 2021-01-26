@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @dump($__data)
     <div class="container mx-auto px-4 py-6">
         <div class="game-details border-b border-gray-800 pb-12 flex flex-col lg:flex-row">
             <div class="flex-none">
