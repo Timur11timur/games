@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Traits\IGDB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -14,8 +15,9 @@ class MostAnticipated extends Component
 
     public function loadMostAnticipated()
     {
-        $this->mostAnticipated = Http::withHeaders(config('services.igdb'))
-            ->withBody("fields name, cover.url, platforms.abbreviation, first_release_date, total_rating;
+        $this->mostAnticipated = Cache::remember('most-anticipated', 3*60, function () {
+            return Http::withHeaders(config('services.igdb'))
+                ->withBody("fields name, cover.url, platforms.abbreviation, first_release_date, total_rating;
                     where platforms = ($this->platformIds) & (
                         first_release_date >= $this->current
                         &
@@ -23,7 +25,8 @@ class MostAnticipated extends Component
                     ) & cover != null;
                     sort total_rating desc;
                     limit 4;", 'text')
-            ->post('https://api.igdb.com/v4/games')->json();
+                ->post('https://api.igdb.com/v4/games')->json();
+        });
     }
 
     public function render()
