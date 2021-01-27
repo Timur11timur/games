@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <title>Games</title>
     <link href="/css/main.css" rel="stylesheet">
+    @livewireStyles
 </head>
 <body class="bg-gray-900 text-white">
     <header class="border-b border-gray-800">
@@ -45,5 +46,6 @@
             Powered By <a href="#" class="underline hover:text-gray-400">Timur</a>
         </div>
     </footer>
+    @livewireScripts
 </body>
 </html>
