@@ -14,12 +14,18 @@
                     </div>
                 @endif
             </div>
-            <a href="#" class="block text-base font-semibold leading-tight hover:text-gray-400">{{ $popularGame['name'] }}</a>
+            <a href="#" class="block text-base font-semibold leading-tight hover:text-gray-400 mt-3">{{ $popularGame['name'] }}</a>
             <div class="text-gray-400 mt-1">{{ implode (', ',array_map(function($item) {return $item['abbreviation'];}, $popularGame['platforms'])) }}</div>
         </div>
     @empty
-        <div class="mt-8 ml-2">
-           @include('layouts.spinner')
-        </div>
+        @for($i=0;$i<12;$i++)
+            <div class="game mt-8">
+                <div class="relative inline-block">
+                    <div class="bg-gray-800 w-44 h-56"></div>
+                </div>
+                <div class="bg-gray-700 mt-3 rounded w-38 h-5"></div>
+                <div class="bg-gray-700 mt-2 rounded w-24 h-9"></div>
+            </div>
+        @endfor
     @endforelse
 </div>

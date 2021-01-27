@@ -15,8 +15,8 @@ class MostAnticipated extends Component
 
     public function loadMostAnticipated()
     {
-        $this->mostAnticipated = Cache::remember('most-anticipated', 3*60, function () {
-            return Http::withHeaders(config('services.igdb'))
+        $this->mostAnticipated = Cache::remember('most-anticipated', config('services.igdb.cache-time'), function () {
+            return Http::withHeaders(config('services.igdb.headers'))
                 ->withBody("fields name, cover.url, platforms.abbreviation, first_release_date, total_rating;
                     where platforms = ($this->platformIds) & (
                         first_release_date >= $this->current

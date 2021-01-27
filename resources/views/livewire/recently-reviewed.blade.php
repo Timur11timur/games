@@ -21,8 +21,19 @@
             </div>
         </div>
     @empty
-        <div class="mt-8 ml-2">
-            @include('layouts.spinner')
-        </div>
+        @for($i=0;$i<3;$i++)
+            <div class="game bg-gray-800 rounded-lg shadow-md flex px-6 py-6">
+                <div class="relative flex-none">
+                    <div class="bg-gray-700 w-48 h-64"></div>
+                </div>
+                <div class="ml-12">
+                    <div class="bg-gray-600 w-20 h-6 rounded mt-4"></div>
+                    <div class="bg-gray-600 w-44 h-6 rounded mt-3"></div>
+                    <div class="bg-gray-600 w-96 h-5 rounded mt-9"></div>
+                    <div class="bg-gray-600 w-96 h-5 rounded mt-3"></div>
+                    <div class="bg-gray-600 w-96 h-5 rounded mt-3"></div>
+                </div>
+            </div>
+        @endfor
     @endforelse
 </div>

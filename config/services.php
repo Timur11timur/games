@@ -31,8 +31,11 @@ return [
     ],
 
     'igdb' => [
-        'Client-ID' => env('IGDB_CLIENT_ID'),
-        'Authorization' => 'Bearer ' . env('IGDB_TOKEN')
+        'headers' => [
+                'Client-ID' => env('IGDB_CLIENT_ID'),
+                'Authorization' => 'Bearer ' . env('IGDB_TOKEN')
+            ],
+        'cache-time' => env('IGDB_CACHE_TIME', 180)
     ],
 
 ];

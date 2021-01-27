@@ -15,8 +15,8 @@ class RecentlyReviewed extends Component
 
     public function loadRecentlyReviewed()
     {
-        $this->recentlyReviewed = Cache::remember('recently-reviewed', 3*60, function () {
-            return Http::withHeaders(config('services.igdb'))
+        $this->recentlyReviewed = Cache::remember('recently-reviewed', config('services.igdb.cache-time'), function () {
+            return Http::withHeaders(config('services.igdb.headers'))
                 ->withBody("fields name, cover.url, platforms.abbreviation, first_release_date, total_rating, total_rating_count, summary;
                     where platforms = ($this->platformIds) & (
                         first_release_date >= $this->before
