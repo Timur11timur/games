@@ -3,12 +3,12 @@
     @forelse($mostAnticipated as $anticipated)
         <div class="game flex">
             <a href="{{ route('games.show', ['slug' => $anticipated['slug']]) }}">
-                <img src="{{ str_replace('thumb', 'cover_small', $anticipated['cover']['url']) }}" alt="game cover"
+                <img src="{{ $anticipated['coverSmallUrl'] }}" alt="game cover"
                      class="w-16 hover:opacity-75 transition ease-in-out duration-150">
             </a>
             <div class="ml-4">
                 <a href="{{ route('games.show', ['slug' => $anticipated['slug']]) }}" class="hover:text-gray-300">{{ $anticipated['name'] }}</a>
-                <div class="text-gray-400 text-sm mt-1">{{ \Carbon\Carbon::parse($anticipated['first_release_date'])->format('M d, Y') }}</div>
+                <div class="text-gray-400 text-sm mt-1">{{ $anticipated['releaseDate'] }}</div>
             </div>
         </div>
     @empty

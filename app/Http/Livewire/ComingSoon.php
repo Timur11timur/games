@@ -15,9 +15,9 @@ class ComingSoon extends Component
 
     public function loadComingSoon()
     {
-        $this->comingSoon = Cache::remember('coming-soon', config('services.igdb.cache-time'), function () {
+        $comingSoon = Cache::remember('coming-soon', config('services.igdb.cache-time'), function () {
             return Http::withHeaders(config('services.igdb.headers'))
-                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,total_rating,slug;
+                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,rating,total_rating,slug;
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->current
                     & total_rating_count > 0
@@ -26,6 +26,8 @@ class ComingSoon extends Component
                     limit 4;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();
         });
+
+        $this->comingSoon = $this->formatForView($comingSoon);
     }
 
     public function render()

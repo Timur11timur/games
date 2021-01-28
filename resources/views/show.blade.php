@@ -13,8 +13,10 @@
                     <span>{{ implode (', ',array_map(function($item) {return $item['name'];}, $game['genres'])) }}</span>
                     &middot;
                     <span>{{ implode (', ',array_map(function($item) {return $item['company']['name'];}, $game['involved_companies'])) }}</span>
-                    &middot;
-                    <span>{{ implode (', ',array_map(function($item) {return $item['abbreviation'];}, $game['platforms'])) }}</span>
+                    @if(isset($game['platforms']))
+                        &middot;
+                        <span>{{ implode (', ',array_map(function($item) {return $item['abbreviation'];}, $game['platforms'])) }}</span>
+                    @endif
                 </div>
 
                 <div class="flex flex-wrap items-center mt-8">
@@ -72,7 +74,7 @@
 {{--                       <span class="ml-2">Play Trailer</span>--}}
 {{--                    </button>--}}
                     @foreach($game['videos'] as $video)
-                        <a target="_blank" href="https://youtube.com/watch/{{ $video['video_id'] }}" class="inline-flex bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-4 rounded transition ease-in-out duration-150 mr-2">
+                        <a target="_blank" href="https://youtube.com/watch/{{ $video['video_id'] }}" class="inline-flex bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-4 rounded transition ease-in-out duration-150 mr-2 mb-2">
                             <svg class="w-6 fill-current" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
                             <span class="ml-2">Play {{ $video['name'] }}</span>
                         </a>
@@ -117,7 +119,7 @@
                         </div>
                         <a href="{{ route('games.show', ['slug' => $similar_game['slug']]) }}" class="block text-base font-semibold leading-tight hover:text-gray-400">{{ $similar_game['name'] }}</a>
                         @if(isset($similar_game['platforms']))
-                            <div class="text-gray-400 mt-1">{{ implode (', ',array_map(function($item) {return $item['abbreviation'];}, $similar_game['platforms'])) }}</div>
+                            <div class="text-gray-400 mt-1">{{ implode (', ',array_map(function($item) {return $item['abbreviation'] ?? $item;}, array_filter($similar_game['platforms'], function($it) {return isset($it['abbreviation']);}))) }}</div>
                         @endif
                     </div>
                 @endforeach

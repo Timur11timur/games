@@ -15,9 +15,9 @@ class RecentlyReviewed extends Component
 
     public function loadRecentlyReviewed()
     {
-        $this->recentlyReviewed = Cache::remember('recently-reviewed', config('services.igdb.cache-time'), function () {
+        $recentlyReviewed = Cache::remember('recently-reviewed', config('services.igdb.cache-time'), function () {
             return Http::withHeaders(config('services.igdb.headers'))
-                ->withBody("fields name, cover.url,platforms.abbreviation,first_release_date,total_rating,total_rating_count,summary,slug;
+                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,rating,total_rating,total_rating_count,summary,slug;
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->before
                     & first_release_date < $this->current
@@ -27,6 +27,8 @@ class RecentlyReviewed extends Component
                     limit 3;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();
         });
+
+        $this->recentlyReviewed = $this->formatForView($recentlyReviewed);
     }
 
     public function render()

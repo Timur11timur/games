@@ -4,18 +4,18 @@
         <div class="game mt-8">
             <div class="relative inline-block">
                 <a href="{{ route('games.show', ['slug' => $popularGame['slug']]) }}">
-                    <img src="{{ str_replace('thumb', 'cover_big', $popularGame['cover']['url']) }}" alt="game cover"
+                    <img src="{{ $popularGame['coverBigUrl'] }}" alt="game cover"
                          class="hover:opacity-75 transition ease-in-out duration-150">
                 </a>
                 @if(isset($popularGame['total_rating']))
                     <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-800 rounded-full"
                          style="right: -20px; bottom: -20px;">
-                        <div class="font-semibold text-xs flex justify-center items-center h-full">{{ round($popularGame['total_rating']) }}%</div>
+                        <div class="font-semibold text-xs flex justify-center items-center h-full">{{ $popularGame['total_rating'] }}</div>
                     </div>
                 @endif
             </div>
             <a href="{{ route('games.show', ['slug' => $popularGame['slug']]) }}" class="block text-base font-semibold leading-tight hover:text-gray-400 mt-3">{{ $popularGame['name'] }}</a>
-            <div class="text-gray-400 mt-1">{{ implode (', ',array_map(function($item) {return $item['abbreviation'];}, $popularGame['platforms'])) }}</div>
+            <div class="text-gray-400 mt-1">{{ $popularGame['platforms'] }}</div>
         </div>
     @empty
         @for($i=0;$i<12;$i++)

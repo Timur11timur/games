@@ -15,9 +15,9 @@ class PopularGames extends Component
 
     public function loadPopularGames()
     {
-        $this->popularGames = Cache::remember('popular-games', config('services.igdb.cache-time'), function () {
+        $popularGames = Cache::remember('popular-games', config('services.igdb.cache-time'), function () {
             return Http::withHeaders(config('services.igdb.headers'))
-                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,total_rating,slug;
+                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,rating,total_rating,slug;
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->before
                     & first_release_date < $this->after
@@ -26,6 +26,8 @@ class PopularGames extends Component
                     limit 12;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();
         });
+
+        $this->popularGames = $this->formatForView($popularGames);
     }
 
     public function render()
