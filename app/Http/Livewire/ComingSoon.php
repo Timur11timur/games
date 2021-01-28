@@ -17,7 +17,7 @@ class ComingSoon extends Component
     {
         $this->comingSoon = Cache::remember('coming-soon', config('services.igdb.cache-time'), function () {
             return Http::withHeaders(config('services.igdb.headers'))
-                ->withBody("fields name, cover.url, platforms.abbreviation, first_release_date, total_rating;
+                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,total_rating,slug;
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->current
                     & total_rating_count > 0

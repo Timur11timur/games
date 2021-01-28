@@ -17,12 +17,11 @@ class PopularGames extends Component
     {
         $this->popularGames = Cache::remember('popular-games', config('services.igdb.cache-time'), function () {
             return Http::withHeaders(config('services.igdb.headers'))
-                ->withBody("fields name, cover.url, platforms.abbreviation, first_release_date, total_rating;
-                    where platforms = ($this->platformIds) & (
-                        first_release_date >= $this->before
-                        &
-                        first_release_date < $this->after
-                    ) & cover != null & total_rating != null;
+                ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,total_rating,slug;
+                    where platforms = ($this->platformIds)
+                    & first_release_date >= $this->before
+                    & first_release_date < $this->after
+                    & cover != null & total_rating != null;
                     sort total_rating desc;
                     limit 12;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();
