@@ -112,24 +112,7 @@
                     @if(is_null($similar_game['coverBigUrl']))
                         @continue
                     @endif
-                    <div class="game mt-8">
-                        <div class="relative inline-block">
-                            <a href="{{ route('games.show', ['slug' => $similar_game['slug']]) }}">
-                                <img src="{{ $similar_game['coverBigUrl'] }}" alt="game cover"
-                                     class="hover:opacity-75 transition ease-in-out duration-150">
-                            </a>
-                            @if(!is_null($similar_game['total_rating']))
-                                <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-800 rounded-full"
-                                     style="right: -20px; bottom: -20px;">
-                                    <div class="font-semibold text-xs flex justify-center items-center h-full">{{ $similar_game['total_rating'] }}</div>
-                                </div>
-                            @endif
-                        </div>
-                        <a href="{{ route('games.show', ['slug' => $similar_game['slug']]) }}" class="block text-base font-semibold leading-tight hover:text-gray-400">{{ $similar_game['name'] }}</a>
-                        @if(!is_null($similar_game['platforms']))
-                            <div class="text-gray-400 mt-1">{{ $similar_game['platforms'] }}</div>
-                        @endif
-                    </div>
+                    <x-game-card :game="$similar_game" />
                 @endforeach
             </div>
         </div>

@@ -36,6 +36,10 @@ trait IGDB
     private function formatForView($games)
     {
         $result = collect($games)->map(function ($game) {
+            if (!isset($game['cover']) || !isset($game['cover']['url']) || !isset($game['slug'])) {
+                return false;
+            }
+
             return collect($game)->merge([
                 'coverBigUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
                 'coverSmallUrl' => Str::replaceFirst('thumb', 'cover_small', $game['cover']['url']),
