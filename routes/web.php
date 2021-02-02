@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/tim', 'GamesController@tim')->name('games.tim');
 
 Route::get('/', 'GamesController@index')->name('games.index');
 

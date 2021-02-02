@@ -21,7 +21,8 @@ class ComingSoon extends Component
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->current
                     & total_rating_count > 0
-                    & cover != null;
+                    & cover != null
+                    & slug != null;
                     sort first_release_date asc;
                     limit 4;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();

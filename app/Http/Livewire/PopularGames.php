@@ -21,7 +21,9 @@ class PopularGames extends Component
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->before
                     & first_release_date < $this->after
-                    & cover != null & total_rating != null;
+                    & cover != null
+                    & total_rating != null
+                    & slug != null;
                     sort total_rating desc;
                     limit 12;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();

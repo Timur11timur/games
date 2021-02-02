@@ -21,7 +21,8 @@ class MostAnticipated extends Component
                     where platforms = ($this->platformIds)
                     & first_release_date >= $this->current
                     & first_release_date < $this->afterFourMonths
-                    & cover != null;
+                    & cover != null
+                    & slug != null;
                     sort total_rating desc;
                     limit 4;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();

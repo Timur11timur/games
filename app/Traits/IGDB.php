@@ -35,32 +35,34 @@ trait IGDB
 
     private function formatForView($games)
     {
-        $result = collect($games)->map(function ($game) {
-            if (!isset($game['cover']) || !isset($game['cover']['url']) || !isset($game['slug'])) {
-                return false;
-            }
-
-            return collect($game)->merge([
-                'coverBigUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
-                'coverSmallUrl' => Str::replaceFirst('thumb', 'cover_small', $game['cover']['url']),
-                'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null,
-                'total_rating' => isset($game['total_rating']) ? round($game['total_rating']) . '%' : null,
-                'releaseDate' => isset($game['first_release_date']) ? Carbon::parse($game['first_release_date'])->format('M d, Y') : null,
-                'platforms' => implode(', ',
-                    array_map(
-                        function ($item) {
-                            return $item['abbreviation'];
-                        },
-                        array_filter(
-                            $game['platforms'],
-                            function ($it) {
-                                return isset($it['abbreviation']);
-                            }
+        $result = collect($games)
+            ->filter(function ($game) {
+                if (isset($game['cover']) && isset($game['cover']['url']) && isset($game['slug'])) {
+                    return true;
+                }
+            })
+            ->map(function ($game) {
+                return collect($game)->merge([
+                    'coverBigUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
+                    'coverSmallUrl' => Str::replaceFirst('thumb', 'cover_small', $game['cover']['url']),
+                    'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null,
+                    'total_rating' => isset($game['total_rating']) ? round($game['total_rating']) . '%' : null,
+                    'releaseDate' => isset($game['first_release_date']) ? Carbon::parse($game['first_release_date'])->format('M d, Y') : null,
+                    'platforms' => implode(', ',
+                        array_map(
+                            function ($item) {
+                                return $item['abbreviation'];
+                            },
+                            array_filter(
+                                $game['platforms'],
+                                function ($it) {
+                                    return isset($it['abbreviation']);
+                                }
+                            )
                         )
-                    )
-                ),
-            ]);
-        });
+                    ),
+                ]);
+            });
 
         return $result;
     }

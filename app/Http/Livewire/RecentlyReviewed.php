@@ -22,7 +22,9 @@ class RecentlyReviewed extends Component
                     & first_release_date >= $this->before
                     & first_release_date < $this->current
                     & total_rating_count > 1
-                    & cover != null & total_rating != null;
+                    & cover != null
+                    & total_rating != null
+                    & slug != null;
                     sort first_release_date desc;
                     limit 3;", 'text')
                 ->post('https://api.igdb.com/v4/games')->json();
