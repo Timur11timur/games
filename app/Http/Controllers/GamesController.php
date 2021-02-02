@@ -48,7 +48,7 @@ class GamesController extends Controller
     public function show($slug)
     {
         $game = Http::withHeaders(config('services.igdb.headers'))
-            ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,aggregated_rating,rating,total_rating,slug,summary,genres.name,involved_companies.company.name,videos.video_id,videos.name,screenshots.url,similar_games.name,similar_games.slug,similar_games.total_rating,similar_games.platforms.abbreviation,similar_games.cover.url;
+            ->withBody("fields name,cover.url,platforms.abbreviation,first_release_date,aggregated_rating,rating,total_rating,slug,summary,genres.name,involved_companies.company.name,videos.video_id,videos.name,screenshots.url,similar_games.name,similar_games.slug,similar_games.total_rating,similar_games.platforms.abbreviation,similar_games.cover.url,websites.url;
                     where slug=\"$slug\";", 'text')
             ->post('https://api.igdb.com/v4/games')->json();
 
@@ -153,6 +153,18 @@ class GamesController extends Controller
                     'name' => $similar['name'],
                 ];
             })->take(6),
+            'social' => [
+                'website' => collect($game['websites'])->first(),
+                'facebook' => collect($game['websites'])->filter(function($website) {
+                    return Str::contains($website['url'], 'facebook');
+                })->first(),
+                'twitter' => collect($game['websites'])->filter(function($website) {
+                    return Str::contains($website['url'], 'twitter');
+                })->first(),
+                'instagram' => collect($game['websites'])->filter(function($website) {
+                    return Str::contains($website['url'], 'instagram');
+                })->first(),
+            ]
         ]);
 
         return $result;

@@ -39,26 +39,34 @@
                         <div class="ml-4 text-xs">Critic's<br> score</div>
                     </div>
                     <div class="flex items-center space-x-4 mt-4 lg:mt-0 lg:ml-12">
-                        <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                            <a href="#" class="hover:text-gray-400 w-5">
-                                <img src="/images/icons/world.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
-                            </a>
-                        </div>
-                        <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                            <a href="#" class="hover:text-gray-400 w-5">
-                                <img src="/images/icons/instagram.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
-                            </a>
-                        </div>
-                        <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                            <a href="#" class="hover:text-gray-400 w-5">
-                                <img src="/images/icons/twitter.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
-                            </a>
-                        </div>
-                        <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                            <a href="#" class="hover:text-gray-400 w-5">
-                                <img src="/images/icons/facebook.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
-                            </a>
-                        </div>
+                        @if(!is_null($game['social']['website']))
+                            <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
+                                <a href="{{ $game['social']['website']['url'] }}" target="_blank" class="hover:text-gray-400 w-5">
+                                    <img src="/images/icons/world.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
+                                </a>
+                            </div>
+                        @endif
+                        @if(!is_null($game['social']['instagram']))
+                            <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
+                                <a href="{{ $game['social']['instagram']['url'] }}" target="_blank" class="hover:text-gray-400 w-5">
+                                    <img src="/images/icons/instagram.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
+                                </a>
+                            </div>
+                        @endif
+                        @if(!is_null($game['social']['twitter']))
+                            <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
+                                <a href="{{ $game['social']['twitter']['url'] }}" target="_blank" class="hover:text-gray-400 w-5">
+                                    <img src="/images/icons/twitter.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
+                                </a>
+                            </div>
+                        @endif
+                        @if(!is_null($game['social']['facebook']))
+                            <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
+                                <a href="{{ $game['social']['facebook']['url'] }}" target="_blank" class="hover:text-gray-400 w-5">
+                                    <img src="/images/icons/facebook.svg" alt="world" class="hover:opacity-75 transition ease-in-out duration-150">
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 @if(isset($game['summary']))
