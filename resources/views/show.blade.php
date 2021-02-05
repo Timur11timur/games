@@ -23,18 +23,26 @@
 
                 <div class="flex flex-wrap items-center mt-8">
                     <div class="flex items-center">
-                        <div class="w-16 h-16 bg-gray-800 rounded-full">
-                            <div class="font-semibold text-xs flex justify-center items-center h-full">
-                                {{ $game['total_rating'] }}
-                            </div>
+                        <div id="totalRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-sm">
+                            @push('scripts')
+                                @include('layouts._rating', [
+                                    'slug' => 'totalRating',
+                                    'rating' => $game['total_rating'],
+                                    'event' => null,
+                                ])
+                            @endpush
                         </div>
                         <div class="ml-4 text-xs">Member's<br> score</div>
                     </div>
                     <div class="flex items-center ml-12">
-                        <div class="w-16 h-16 bg-gray-800 rounded-full">
-                            <div class="font-semibold text-xs flex justify-center items-center h-full">
-                                {{ $game['aggregated_rating'] }}
-                            </div>
+                        <div id="aggregatedRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-sm">
+                            @push('scripts')
+                                @include('layouts._rating', [
+                                    'slug' => 'aggregatedRating',
+                                    'rating' => $game['aggregated_rating'],
+                                    'event' => null,
+                                ])
+                            @endpush
                         </div>
                         <div class="ml-4 text-xs">Critic's<br> score</div>
                     </div>
