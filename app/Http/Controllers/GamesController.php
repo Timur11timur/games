@@ -97,8 +97,8 @@ class GamesController extends Controller
     {
         $result = collect($game)->merge([
                 'coverBigUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
-                'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) . '%' : '0%',
-                'total_rating' => isset($game['total_rating']) ? round($game['total_rating']) . '%' : '0%',
+                'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) : '0',
+                'total_rating' => isset($game['total_rating']) ? round($game['total_rating']) : '0',
                 'genres' => implode(', ',
                     array_map(
                         function ($item) {
@@ -147,7 +147,7 @@ class GamesController extends Controller
                 'similarGames' => collect($game['similar_games'])->map(function($similar){
                     return [
                         'coverBigUrl' => isset($similar['cover']) ? Str::replaceFirst('thumb', 'cover_big', $similar['cover']['url']) : null,
-                        'total_rating' => isset($similar['total_rating']) ? round($similar['total_rating']) . '%' : null,
+                        'total_rating' => isset($similar['total_rating']) ? round($similar['total_rating']) : null,
                         'platforms' => isset($game['platforms']) ?  implode (', ',array_map(function($item) {return $item['abbreviation'] ?? $item;}, array_filter($similar['platforms'], function($it) {return isset($it['abbreviation']);}))) : null,
                         'slug' => $similar['slug'],
                         'name' => $similar['name'],
