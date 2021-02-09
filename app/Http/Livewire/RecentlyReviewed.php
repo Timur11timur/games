@@ -31,6 +31,15 @@ class RecentlyReviewed extends Component
         });
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewed);
+
+        collect($this->recentlyReviewed)->filter(function ($game) {
+            return $game['total_rating'];
+        })->each(function ($game) {
+            $this->emit('reviewGameWithRatingAdded', [
+                'slug' => 'review_' . $game['slug'],
+                'rating' => $game['total_rating'] / 100,
+            ]);
+        });
     }
 
     public function render()

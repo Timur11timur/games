@@ -26,10 +26,20 @@ class PopularGames extends Component
                     & slug != null;
                     sort total_rating desc;
                     limit 12;", 'text')
-                ->post('https://api.igdb.com/v4/games')->json();
+                ->post('https://api.igdb.com/v4/games')
+                ->json();
         });
 
         $this->popularGames = $this->formatForView($popularGames);
+
+        collect($this->popularGames)->filter(function ($game) {
+            return $game['total_rating'];
+        })->each(function ($game) {
+            $this->emit('gameWithRatingAdded', [
+                'slug' => $game['slug'],
+                'rating' => $game['total_rating'] / 100,
+            ]);
+        });
     }
 
     public function render()

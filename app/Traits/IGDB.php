@@ -45,8 +45,8 @@ trait IGDB
                 return collect($game)->merge([
                     'coverBigUrl' => Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']),
                     'coverSmallUrl' => Str::replaceFirst('thumb', 'cover_small', $game['cover']['url']),
-                    'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null,
-                    'total_rating' => isset($game['total_rating']) ? round($game['total_rating']) . '%' : null,
+                    'rating' => isset($game['rating']) ? round($game['rating']) : null,
+                    'total_rating' => isset($game['total_rating']) ? round($game['total_rating']) : null,
                     'releaseDate' => isset($game['first_release_date']) ? Carbon::parse($game['first_release_date'])->format('M d, Y') : null,
                     'platforms' => implode(', ',
                         array_map(

@@ -8,3 +8,8 @@
         @endfor
     @endforelse
 </div>
+@push('scripts')
+    @include('layouts._rating', [
+        'event' => 'gameWithRatingAdded',
+    ])
+@endpush
