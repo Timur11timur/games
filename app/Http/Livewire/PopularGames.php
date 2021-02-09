@@ -24,7 +24,6 @@ class PopularGames extends Component
                     & cover != null
                     & total_rating != null
                     & total_rating_count != null
-                    & total_rating_count > 5
                     & slug != null;
                     sort total_rating_count desc;
                     limit 12;", 'text/plain')
