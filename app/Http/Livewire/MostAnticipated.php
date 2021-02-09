@@ -24,7 +24,7 @@ class MostAnticipated extends Component
                     & cover != null
                     & slug != null;
                     sort total_rating desc;
-                    limit 4;", 'text')
+                    limit 4;", 'text/plain')
                 ->post('https://api.igdb.com/v4/games')->json();
         });
 

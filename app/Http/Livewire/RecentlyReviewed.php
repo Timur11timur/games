@@ -26,7 +26,7 @@ class RecentlyReviewed extends Component
                     & total_rating != null
                     & slug != null;
                     sort first_release_date desc;
-                    limit 3;", 'text')
+                    limit 3;", 'text/plain')
                 ->post('https://api.igdb.com/v4/games')->json();
         });
 

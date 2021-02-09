@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
@@ -21,7 +20,7 @@ class SearchDropdown extends Component
                             where cover != null
                             & slug != null
                             & name != null;
-                            limit 6;", 'text')
+                            limit 6;", 'text/plain')
                 ->post('https://api.igdb.com/v4/games')
                 ->json();
         }
