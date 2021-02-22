@@ -172,6 +172,11 @@ class GamesController extends Controller
 
     public function tim()
     {
+        $day = request()->input('day');
+        if (is_null($day)) {
+            $day = 7;
+        }
+
         $rids=55;
         $did=11;
         $bids=13;
@@ -181,10 +186,10 @@ class GamesController extends Controller
         $atca1=3;
         $atca2=0;
         $atca3=0;
-        $dd='16.04.2021';
-        $ddt='25.04.2021';
-        $dcid=10;    //ночей от
-        $dcidto=10;  //ночей до
+        $dd='31.03.2021';
+        $ddt='14.04.2021';
+        $dcid=$day;    //ночей от
+        $dcidto=$day;  //ночей до
         $priceto=200000;
         $pg=1;      //page
         $reid=0;
@@ -192,6 +197,7 @@ class GamesController extends Controller
         //$response = Http::post("https://www.poehalisnami.ua/ajaxlist/pagerlist/egipet/sharm-el-shejjkh?rids=$rids&did=$did&bids=$bids&hccids=$hccids&atid=$atid&cq=$cq&atca1=$atca1&atca2=$atca2&atca3=$atca3&dd=$dd&ddt=$ddt&dcid=$dcid&dcidto=$dcidto&priceto=$priceto&pg=$pg&reid=$reid")->json();
 
         $data = [];
+        echo "Loop: ";
         do {
             $response = Http::post("https://www.poehalisnami.ua/ajaxlist/pagerlist/egipet/sharm-el-shejjkh?rids=$rids&did=$did&bids=$bids&hccids=$hccids&atid=$atid&cq=$cq&atca1=$atca1&atca2=$atca2&atca3=$atca3&dd=$dd&ddt=$ddt&dcid=$dcid&dcidto=$dcidto&priceto=$priceto&pg=$pg&reid=$reid")->json();
             $data = array_merge($data, $response['TourListItems']);
@@ -210,6 +216,36 @@ class GamesController extends Controller
             </tr>";
 
         foreach ($data as $item) {
+            $arr = [
+                'Sharm Inn Amarein',
+                'Sharming Inn Hotel (ex. Sol Y Mar Sharming Inn)',
+                'Sharming Inn Hotel',
+                'Cyrene Island Hotel',
+                'Old Vic Sharm',
+                'Il Mercato Hotel',
+                'Oriental Rivoli Hotel',
+                'Panorama Naama Heights',
+                'Dive Inn Resort Hotel',
+                'Delta Sharm Resort & SPA',
+                'Tivoli Spa Hotel & Aqua Park',
+                'Turquoise Beach Hotel',
+                'Verginia Sharm',
+                'Aqua Hotel Resort & Spa',
+                'Sharm Bride Hotel',
+                'Parrotel Aqua Park Resort',
+                'Palmyra Amar El Zaman Aqua Park (ex. The Three Corners Palmyra)',
+                'Palmyra Amar El Zaman Aqua Park',
+                'Sharm Holiday Resort',
+                'Cyrene Island Hotel',
+                'Cyrene Island Hotel (ex. Cyrene Island Hotel)',
+
+
+            ];
+
+            if (in_array($item['TourName'], $arr)) {
+                continue;
+            }
+
             $html .= "<tr>
                 <td>".$item['TourName']."</td>
                 <td>".count($item['HotelStarsCount'])."</td>
