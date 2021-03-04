@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -174,7 +175,15 @@ class GamesController extends Controller
     {
         $day = request()->input('day');
         if (is_null($day)) {
-            $day = 7;
+            $day = 10;
+        }
+
+        $start = request()->input('start');
+        if (is_null($start)) {
+            $start='08.04.2021';
+            $end='17.04.2021';
+        } else {
+            $end = Carbon::createFromFormat('d.m.Y', $start)->addDays(10)->format('d.m.Y');
         }
 
         $rids=55;
@@ -186,8 +195,8 @@ class GamesController extends Controller
         $atca1=3;
         $atca2=0;
         $atca3=0;
-        $dd='31.03.2021';
-        $ddt='14.04.2021';
+        $dd=$start;
+        $ddt=$end;
         $dcid=$day;    //ночей от
         $dcidto=$day;  //ночей до
         $priceto=200000;
@@ -238,8 +247,11 @@ class GamesController extends Controller
                 'Sharm Holiday Resort',
                 'Cyrene Island Hotel',
                 'Cyrene Island Hotel (ex. Cyrene Island Hotel)',
-
-
+                'Parrotel Aqua Park Resort (ex. Park Inn Resort; Golden Resort)',
+                'Parrotel Aqua Park Resort',
+                'Fortuna Ssh 4*',
+                'Fortuna Ssh 5*',
+                'Tropicana Tivoli',
             ];
 
             if (in_array($item['TourName'], $arr)) {
